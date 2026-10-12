@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot de Ciberseguridad</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      margin: 0;
+      padding: 20px;
+      color: #172033;
+    }
+    .contenedor {
+      max-width: 750px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px #0002;
+    }
+    h1 { color: #155eef; text-align: center; }
+    .subtitulo { text-align: center; color: #586174; }
+    #chat {
+      height: 320px;
+      overflow-y: auto;
+      border: 1px solid #d6dce8;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+      background: #f9fafc;
+    }
+    .mensaje {
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin: 8px 0;
+      white-space: pre-wrap;
+    }
+    .bot { background: #e2ecff; }
+    .usuario { background: #d9f8e5; text-align: right; }
+    .entrada { display: flex; gap: 8px; }
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid #b9c2d0;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 15px;
+      background: #155eef;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover { background: #1047b5; }
+    .extras { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .extras button { background: #475467; }
+    footer { text-align: center; margin-top: 20px; font-size: 13px; color: #667085; }
+  </style>
+</head>
+<body>
+  <main class="contenedor">
+    <h1>🛡️ Chatbot de Ciberseguridad</h1>
+    <p class="subtitulo">Aprende a reconocer amenazas y proteger tus dispositivos.</p>
+
+    <div id="chat" aria-live="polite">
+      <div class="mensaje bot">¡Hola! Soy tu asistente de ciberseguridad. Pregúntame sobre virus, troyanos, malware, redes, direcciones IP o el modelo OSI.</div>
+    </div>
+
+    <form id="formulario" class="entrada">
+      <input id="pregunta" type="text" placeholder="Escribe tu pregunta..." autocomplete="off" required>
+      <button type="submit">Enviar</button>
+    </form>
+
+    <div class="extras">
+      <button type="button" onclick="preguntarEjemplo('¿Qué es un virus informático?')">Virus</button>
+      <button type="button" onclick="preguntarEjemplo('¿Qué es un troyano?')">Troyano</button>
+      <button type="button" onclick="preguntarEjemplo('¿Qué es una dirección IP?')">Dirección IP</button>
+      <button type="button" onclick="preguntarEjemplo('¿Qué es el modelo OSI?')">Modelo OSI</button>
+    </div>
+
+    <footer>Proyecto académico · Ciberseguridad preventiva</footer>
+  </main>
+
+  <script>
+    const chat = document.getElementById("chat");
+    const formulario = document.getElementById("formulario");
+    const entrada = document.getElementById("pregunta");
+
+    function agregarMensaje(texto, tipo) {
+      const mensaje = document.createElement("div");
+      mensaje.className = "mensaje " + tipo;
+      mensaje.textContent = texto;
+      chat.appendChild(mensaje);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function responder(pregunta) {
+      const p = pregunta.toLowerCase();
+
+      if (p.includes("malware")) {
+        return "El malware es un programa diseñado para causar daño, robar información o acceder a un sistema sin permiso. Mantén el sistema actualizado y utiliza herramientas de seguridad confiables.";
+      }
+      if (p.includes("troyano")) {
+        return "Un troyano es un programa malicioso que se disfraza de software legítimo. Evita archivos de fuentes desconocidas y verifica las descargas.";
+      }
+      if (p.includes("virus")) {
+        return "Un virus informático es un tipo de malware que puede adherirse a archivos o programas y propagarse cuando se ejecutan. Actualiza el sistema y analiza archivos sospechosos.";
+      }
+      if (p.includes("gusano")) {
+        return "Un gusano informático es un malware que puede propagarse entre equipos o redes sin necesitar adherirse a otro archivo. Las actualizaciones y una buena configuración de red ayudan a prevenirlo.";
+      }
+      if (p.includes("ip") || p.includes("dirección de red")) {
+        return "Una dirección IP identifica una interfaz dentro de una red que usa el protocolo IP. Puede ser privada o pública, y no siempre identifica por sí sola a una persona.";
+      }
+      if (p.includes("arp")) {
+        return "ARP es un protocolo usado en redes IPv4 para relacionar direcciones IP con direcciones físicas MAC dentro de una red local. Supervisa la red para detectar comportamientos inusuales.";
+      }
+      if (p.includes("osi")) {
+        return "El modelo OSI tiene siete capas: 1 Física, 2 Enlace de datos, 3 Red, 4 Transporte, 5 Sesión, 6 Presentación y 7 Aplicación. Ayuda a comprender cómo se comunican los sistemas.";
+      }
+      if (p.includes("contraseña") || p.includes("contraseña segura")) {
+        return "Usa contraseñas largas y únicas, activa la autenticación multifactor cuando sea posible y nunca compartas tus claves.";
+      }
+      if (p.includes("phishing")) {
+        return "El phishing intenta engañarte para que entregues información o abras enlaces maliciosos. Verifica el remitente y entra a los sitios escribiendo su dirección oficial.";
+      }
+      if (p.includes("proteger") || p.includes("seguridad")) {
+        return "Para protegerte: actualiza tus dispositivos, utiliza contraseñas únicas, activa la autenticación multifactor, realiza copias de seguridad y evita enlaces sospechosos.";
+      }
+      return "No tengo una respuesta específica para esa pregunta. Prueba preguntando sobre malware, virus, troyanos, gusanos, phishing, IP, ARP o el modelo OSI.";
+    }
+
+    formulario.addEventListener("submit", function(evento) {
+      evento.preventDefault();
+      const texto = entrada.value.trim();
+      if (!texto) return;
+      agregarMensaje(texto, "usuario");
+      agregarMensaje(responder(texto), "bot");
+      entrada.value = "";
+      entrada.focus();
+    });
+
+    function preguntarEjemplo(texto) {
+      agregarMensaje(texto, "usuario");
+      agregarMensaje(responder(texto), "bot");
+    }
+  </script>
+</body>
+</html>
